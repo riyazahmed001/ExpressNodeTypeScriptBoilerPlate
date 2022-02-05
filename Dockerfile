@@ -15,5 +15,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 9000
+#map the host port to container port
+EXPOSE 4200:3000
+
 CMD [ "npm", "run", "serve" ]
