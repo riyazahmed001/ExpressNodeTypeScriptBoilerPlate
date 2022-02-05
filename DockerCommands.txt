@@ -9,7 +9,7 @@
  The -p flag redirects a public port to a private port inside the container.
  Run the image you previously built:
 
- docker run -p 49160:9000 -d nodejsimage/test1
+ docker run -p 4000:3000 -d nodejsimage/test1
 
 # Get container ID
 $ docker ps

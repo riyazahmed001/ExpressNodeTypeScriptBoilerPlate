@@ -16,6 +16,6 @@ RUN npm install
 COPY . .
 
 #map the host port to container port
-EXPOSE 4200:3000
+EXPOSE 3000
 
 CMD [ "npm", "run", "serve" ]
