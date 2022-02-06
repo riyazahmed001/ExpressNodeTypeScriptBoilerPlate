@@ -32,11 +32,8 @@ export class SampleController extends CommonRoutesConfig {
         throw new Error('something');
     }
     private errorHandlingMiddleWare(error, req: Request, res:Response, next:NextFunction){
-            console.log("Error Handling Middleware called")
-            let sampleObject = {
-                "test":"Test Error Handling"
-            }
-            res.status(404).json(sampleObject);
+            console.log("Error Handling Middleware called route level");
+            next(error);
     }
 }
 

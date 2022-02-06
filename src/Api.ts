@@ -16,6 +16,7 @@ export class Api{
     private configure() {
         this.configureMiddleware();
         this.configureRoutes();
+        this.configureErrorHandlingMiddleWare();
     }
     private configureRoutes() {
         ApiRouting.ConfigureRouters(this.app);
@@ -23,8 +24,19 @@ export class Api{
     private configureMiddleware() {
         this.app.use(SampleMiddleWare.myLogger);
     }
+    private configureErrorHandlingMiddleWare(){
+        this.app.use(this.errorHandlingMiddleWare);
+    }
     public run() {
         let server = http.createServer(this.app);
         server.listen(this.port)
     }
+
+    private errorHandlingMiddleWare(error, req: Request, res:Response, next:NextFunction){
+        console.log("Error Handling Middleware called api level")
+        let sampleObject = {
+            "test":"Test Error Handling"
+        }
+        res.status(404).json(sampleObject);
+}
 }
