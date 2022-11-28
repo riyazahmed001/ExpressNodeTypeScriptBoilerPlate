@@ -3,7 +3,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import redis from 'redis';
 import connectRedis from 'connect-redis';
-import { router } from './router.js';
+import { router } from './redis_router.js';
 
 let redisStore = connectRedis(session);
 const client  = redis.createClient();
@@ -17,6 +17,8 @@ Tried this for latest version of redis but didnt solve the issue
 
 client.on('connect', () => console.log('Redis Client Connected'));
 client.on('error', (err) => console.log('Redis Client Connection Error', err));
+
+We have to start Redis Store before starting this
 */
 app.use(session({
     secret: 'ssshhhhh',

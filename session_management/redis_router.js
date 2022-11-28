@@ -1,4 +1,9 @@
 import express from 'express';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename) ;
 
 export const router = express.Router();
 
@@ -7,7 +12,7 @@ router.get('/',(req,res) => {
     if(sess.email) {
         return res.redirect('/admin');
     }
-    res.sendFile('index.html');
+    res.sendFile('express.html', { root: path.join(__dirname,'/views') });
 });
 
 router.post('/login',(req,res) => {
