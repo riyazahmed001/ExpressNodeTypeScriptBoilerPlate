@@ -1,9 +1,8 @@
-
-const express = require('express');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
-require('./passport');
-
+import express from 'express';
+import passport from 'passport';
+import cookieSession from 'cookie-session';
+import './passport.js';
+import { router } from './google_authenticator_middleware.js';
 const app = express();
 
 app.use(cookieSession({
@@ -25,7 +24,12 @@ app.use(passport.session());
 const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-    res.json({message: "You are not logged in"});
+    if(req.user) {
+        res.redirect('/success');
+    }
+    else {
+        res.redirect('/login');
+    }
 })
 
 app.get("/failed", (req, res) => {
@@ -35,27 +39,16 @@ app.get("/success",isLoggedIn, (req, res) => {
     res.send(`Welcome ${req.user.email}`);
 })
 
-app.get('/login',
-    passport.authenticate('google', {
-            scope:
-                ['email', 'profile']
-        }
-    ));
-
-app.get('/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/failed',
-    }),
-    function (req, res) {
-        res.redirect('/success');
-
-    }
-);
+app.get('/login', (req, res) => {
+    res.redirect('/google/login');
+});
 
 app.get("/logout", (req, res) => {
     req.session = null;
     req.logout();
-    res.redirect('/');
-})
+    res.send('logout successful');
+});
 
-app.listen(port, () => console.log("server running on port" + port));
+app.use('/google', router);
+
+app.listen(port, () => console.log("server running on port " + port));

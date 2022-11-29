@@ -1,5 +1,6 @@
-const passport =require("passport")
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
+import passport from 'passport';
+import passport_oauth2 from 'passport-google-oauth2';
+const GoogleStrategy = passport_oauth2.Strategy;
 
 passport.serializeUser(function(user, done) {
     done(null, user);
