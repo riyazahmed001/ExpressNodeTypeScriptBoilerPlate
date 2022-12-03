@@ -1,6 +1,12 @@
+ In docker windows settings uncheck use wsl
+ 
+ open power shell as administrator and run the following command to enable hyper v
+ https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v
+ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+ 
  Go to the directory that has your Dockerfile and run the following command to build the Docker image.
  The -t flag lets you tag your image so it's easier to find later using the docker images command:
- docker build . -t nodejsimage/test1
+ docker build . -t rafiriyazahmed/testimage
 
  docker images
 
@@ -9,7 +15,7 @@
  The -p flag redirects a public port to a private port inside the container.
  Run the image you previously built:
 
- docker run -p 4000:3000 -d nodejsimage/test1
+ docker run -p 4000:3000 -d rafiriyazahmed/testimage
 
 # Get container ID
 $ docker ps
@@ -22,3 +28,9 @@ If you need to go inside the container you can use the exec command:
 # Enter the container
 
 $ docker exec -it <container id> /bin/bash
+
+To stop the container
+docker stop 26bff720a26b
+
+pushing docker image to docker hub
+https://www.youtube.com/watch?v=pCq-ZYK-jYs
