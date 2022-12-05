@@ -33,7 +33,7 @@ To stop the container
 docker stop 26bff720a26b
 
 pushing docker image to docker hub
-we need tag to push the docker image, the tag should be of formate <user-name>/<repository-name>
+we need tag to push the docker image, the tag should be of format <user-name>/<repository-name>:<version>
 if error do docker logout and then login again
 
 https://www.youtube.com/watch?v=pCq-ZYK-jYs

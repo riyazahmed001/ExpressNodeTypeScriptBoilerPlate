@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    stages {
+        stage('setup pipeline variables') {
+            steps {
+                script {
+                    env.gitUrl = "https://github.com/riyazahmed001/ExpressNodeTypeScriptBoilerPlate.git"
+                    env.gitBranch = "main"
+                    env.imagename = "rafiriyazahmed/testfromjenkins"
+                    env.docker_Registry_credentials = "riyaz_Docker"
+                }   
+            }
+        } 
+        
+        stage('checkout') {
+            steps {
+                deleteDir()
+                checkout (
+                    scm: [
+                        $class: 'GitSCM',
+                        branches: [[name: "${env.gitBranch}"]],
+                        userRemoteConfigs: [[url: "${env.gitUrl}" ]]
+                    ]
+                )
+            }
+        }
+        
+        stage('build and push docker image') {
+            steps{
+                script {
+                    docker.withRegistry( '', env.docker_Registry_credentials ) {
+                        dockerImage = docker.build(env.imagename)
+                        dockerImage.push('$BUILD_NUMBER')
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
+        stage('Remove Unused docker image') {
+            steps {
+                sh "docker rmi ${env.imagename}:$BUILD_NUMBER"
+                sh "docker rmi ${env.imagename}:latest"
+            }
+        }
+    }
+}

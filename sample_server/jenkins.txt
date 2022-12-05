@@ -1,0 +1,28 @@
+Playlist for jenkins in docker
+https://www.youtube.com/watch?v=pMO26j2OUME&list=PLy7NrYWoggjw_LIiDK1LXdNN82uYuuuiC&index=1
+
+Network volumes docker
+https://www.youtube.com/watch?v=p2PH_YPCsis
+
+Steps
+
+we need docker:dind image to run docker commands inside the jenkins
+docker image pull docker:dind
+
+docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+
+-v ---> attach volume ( so we dont have to reconfigure)
+
+check the container
+docker ps
+
+Check the Jenkins logs of the running container
+docker logs <container-id>
+    * In the logs check for password
+
+Open the jenkins dashboard in
+http://localhost:8080
+
+
+document on how to use the image
+https://github.com/jenkinsci/docker/blob/master/README.md
