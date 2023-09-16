@@ -8,7 +8,6 @@ export class SampleController extends CommonRoutesConfig {
     public router: Router;
 
     constructor() {
-        
         super(SampleController.route);
     }
 
@@ -18,6 +17,7 @@ export class SampleController extends CommonRoutesConfig {
         this.router.get('/test2',this.testMethodTwo);
         this.router.use(this.errorHandlingMiddleWare);
     }
+
     public testMethodOne(request: Request, respones:Response, next:NextFunction) {
         let sampleObject = {
             "test":"Test String"
@@ -31,6 +31,7 @@ export class SampleController extends CommonRoutesConfig {
         }
         throw new Error('something');
     }
+
     private errorHandlingMiddleWare(error, req: Request, res:Response, next:NextFunction){
             console.log("Error Handling Middleware called route level");
             next(error);
