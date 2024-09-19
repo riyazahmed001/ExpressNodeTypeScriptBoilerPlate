@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
     this.socket = io('http://localhost:3000');
     
     this.socket.on('dataUpdate', (data: any) => {
+      console.log("Check if this is executed First");
         this.data = JSON.stringify(data);
         this.sendDataToServer();
     });
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
   sendDataToServer() {
     // Send data to the server when a button is clicked
     this.socket.emit('dataForClient', { message: 'Hello, Server!' });
+    // this.socket.emit('pushDataToClient', { message: 'Hello, Server!' });
   }
   
   ngOnDestroy() {

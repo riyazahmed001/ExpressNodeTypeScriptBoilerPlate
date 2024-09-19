@@ -11,12 +11,17 @@ app.use(cors());
 
 const PORT = 3000;
 
+let client = 1;
+
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
+  /**
+   * We can use this socket id and set it in session to uniquely identify subsequent request
+   */
+  console.log('Client connected', socket.id);
 
   socket.on('pushDataToClient', (clientId, data) => {
     console.log("client id" , clientId)
